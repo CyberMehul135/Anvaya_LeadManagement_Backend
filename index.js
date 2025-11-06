@@ -4,7 +4,7 @@ const { initialDatabase } = require("./db/db.connect");
 const cors = require("cors");
 const corsOptions = {
   origin: "*",
-  Credential: true,
+  credentials: true,
 };
 
 const SalesAgent = require("./models/salesAgent.models");
