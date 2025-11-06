@@ -3,7 +3,7 @@ const app = express();
 const { initialDatabase } = require("./db/db.connect");
 const cors = require("cors");
 const corsOptions = {
-  origin: "*",
+  origin: ["http://localhost:5173"],
   credentials: true,
 };
 
