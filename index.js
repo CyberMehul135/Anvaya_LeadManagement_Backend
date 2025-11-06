@@ -3,7 +3,7 @@ const app = express();
 const { initialDatabase } = require("./db/db.connect");
 const cors = require("cors");
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://localhost:5173"],
   credentials: true,
 };
 
@@ -17,6 +17,7 @@ initialDatabase();
 // MIDDLEWARES
 app.use(express.json());
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // ROUTES :
 // [ 1 ] AGENTS API :
