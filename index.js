@@ -80,7 +80,37 @@ app.post("/api/agents", async (req, res) => {
   }
 });
 
-// (2) AGENTS : GET-ALL
+// (2) AGENTS : DELETE
+async function deleteAgentById(agentId) {
+  try {
+    const deletedAgent = await SalesAgent.findByIdAndDelete(agentId);
+
+    // Check if lead exist
+    if (!deletedAgent) {
+      const err = new Error(`Agent with ID ${agentId} not exist.`);
+      err.statusCode = 404;
+      throw err;
+    }
+    return deletedAgent;
+  } catch (error) {
+    throw error;
+  }
+}
+
+app.delete("/api/agents/:agentId", async (req, res) => {
+  try {
+    const deletedAgent = await deleteAgentById(req.params.agentId);
+    res.status(200).json(deletedAgent);
+  } catch (error) {
+    if (error.statusCode === 404) {
+      return res.status(404).json({ error: error.message });
+    }
+
+    res.status(500).json({ error: "Error while deleting agent." });
+  }
+});
+
+// (3) AGENTS : GET-ALL
 async function readAllAgents() {
   try {
     const agents = await SalesAgent.find();
